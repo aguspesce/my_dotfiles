@@ -1,0 +1,9 @@
+[core]
+	editor = nvim
+[user]
+	email = pesce.agustina@gmail.com
+	name = Agustina Pesce
+[merge]
+	tool = meld
+[pull]
+	rebase = false
