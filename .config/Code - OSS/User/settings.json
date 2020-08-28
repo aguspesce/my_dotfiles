@@ -1,0 +1,33 @@
+{
+    "workbench.colorTheme": "Visual Studio Dark",
+    "editor.rulers": [
+        80,
+    ],
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#ff4081"
+    },
+    "editor.minimap.enabled": false,
+    "files.trimTrailingWhitespace": true,
+    "python.pythonPath": "/usr/bin/python3",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Path": "/usr/local/bin/flake8",
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=80"
+    ],
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "/usr/local/bin/black",
+    "python.formatting.blackArgs": [
+        "--line-length=80",
+    ],
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay",
+    "editor.wordWrapColumn": 80
+    "editor.codeActionsOnSave": null,
+    "[json]": {
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace"
+    },
+}
