@@ -4,127 +4,230 @@
 # https://github.com/leouieda/dotfiles/blob/7772b82dc35d8d58ff9504cded966ef518cc24ce/.bash/prompt.sh
 
 
-# Set PROMPT_COMMAND as set_prompt function and a line that
-# changes the window title of X terminals
-case ${TERM} in
-	xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|interix|konsole*)
-		PROMPT_COMMAND='set_prompt && echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
-		;;
-	screen*)
-		PROMPT_COMMAND='set_prompt && echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'
-		;;
-esac
+# Define font colors
+white="\[\e[0m\]"
+red="\[\e[0;31m\]"
+green="\[\e[0;32m\]"
+yellow="\[\e[0;33m\]"
+blue="\[\e[0;34m\]"
+purple="\[\e[0;35m\]"
+light_blue="\[\e[0;36m\]"
 
+white_bold="\[\e[0m\e[1m\]"
+red_bold="\[\e[1;31m\]"
+green_bold="\[\e[1;32m\]"
+yellow_bold="\[\e[1;33m\]"
+blue_bold="\[\e[1;34m\]"
+purple_bold="\[\e[1;35m\]"
+light_blue_bold="\[\e[1;36m\]"
+
+# Define styles for git and conda information on prompt
+CONDA_PROMPT_ENV="$purple_bold "
+GIT_PROMPT_BRANCH="$yellow_bold "
+GIT_PROMPT_AHEAD="$red_bold↑"
+GIT_PROMPT_BEHIND="$red_bold↓"
+GIT_PROMPT_NOUPSTREAM="$red_bold!"
+GIT_PROMPT_DIVERGED="$red_bold↱"
+GIT_PROMPT_CHANGED="$red_bold+"
+GIT_PROMPT_STAGED="$green_bold•"
+GIT_PROMPT_UNTRACKED="$white_bold|"
+GIT_PROMPT_CONFLICT="$red_bold✖"
+GIT_PROMPT_STASHED="$purple_bold✹"
+
+# More configurations
+MULTILINE_PROMPT=1
+SHOW_PYTHON_VERSION=1
+PROMPT_DIRTRIM=2  # make path shorter
+PROMPT_ICON="⮞"
+# PROMPT_ICON="❯"
+NO_WRITTABLE_ICON=""
+REMOTE_ICON=""
 
 set_prompt()
 {
     # Set the PS1 configuration for the prompt
 
-    # Default values for the appearance of the prompt.
-    local main_style="\[\e[1;32m\]"
-    local path_style="\[\e[0m\]\[\e[1m\]"
-    local normal_style="\[\e[0m\]"
-    local git_style="\[\e[1;33m\]"
-    local python_style="\[\e[0;35m\]"
-    local ahead="$git_style↑"
-    local behind="$git_style↓"
-    local noupstream="$git_style!"
-    local diverged="\[\e[1;31m\]↱$normal_style"
-    local changed="\[\e[1;31m\]✚"
-    local staged="\[\e[1;32m\]•"
-    local untracked="\[\e[0m\]\[\e[1m\]|"
-    local conflict="\[\e[1;31m\]✖"
+    # Capture last exit code
+    local EXIT="$?"
+
+    # Capture background jobs
+    local njobs=`jobs | wc -l`
+
+    # Initialize PS1
+    PS1=""
+
+    # Add a linebreak before prompt
+    PS1+="\n"
 
     # Basic first part of the PS1 prompt
-    local host="$main_style[`whoami`@`hostname` $path_style\W$main_style]"
-    PS1="$host"
-
-    local njobs=`jobs | wc -l`
-    if [[ $njobs -ne 0 ]]; then
-        PS1="$PS1 $normal_style($njobs)"
-    fi
-
-    # Python env
-    local conda_env=`get_conda_env`
-    if [[ $conda_env != "" ]]; then
-        PS1="$PS1 $python_style$conda_env"
-    fi
-
-    # Build and append the git status symbols
-    if inside_git_repo; then
-
-        # Branch
-        local git=`get_git_branch`
-
-        # Remote status
-        local remote_status=`get_git_remote_status`
-        if [[ $remote_status == "ahead" ]]; then
-            local remote="$ahead"
-        elif [[ $remote_status == "behind" ]]; then
-            local remote="$behind"
-        elif [[ $remote_status == "noupstream" ]]; then
-            local remote="$noupstream"
-        elif [[ $remote_status == "diverged" ]]; then
-            local remote="$diverged"
-        else
-            local remote=""
-        fi
-
-        if [[ -n $remote ]]; then
-            local git="$git $remote"
-        fi
-
-        # Files status
-        local files_status=""
-
-        local files_staged=`git diff --cached --numstat | wc -l`
-        if [[ $files_staged -ne 0 ]]; then
-            local files_status="$files_status$staged$files_staged"
-        fi
-
-        local files_changed=`git diff --numstat | wc -l`
-        if [[ $files_changed -ne 0 ]]; then
-            local files_status="$files_status$changed$files_changed"
-        fi
-
-        local files_untracked=`git ls-files --others --exclude-standard "$(git rev-parse --show-toplevel)" | wc -l`
-        if [[ $files_untracked -ne 0 ]]; then
-            local files_status="$files_status$untracked$files_untracked"
-        fi
-
-        local files_conflict=`git diff --name-only --diff-filter=U | wc -l`
-        if [[ $files_conflict -ne 0 ]]; then
-            local files_status="$files_status$conflict$files_conflict"
-        fi
-
-        if [[ -n $files_status ]]; then
-            local git="$git $files_status"
-        fi
-
-        # Append the git info to the PS1
-        if [[ -n $git ]]; then
-            PS1="$PS1 $git_style$git"
-        fi
-    fi
-
-    # Finish off with the current directory and the end of the prompt
-    if [[ $conda_env == "" ]] && [[ $git == "" ]] && [[ $njobs -eq 0 ]]; then
-        local end="$main_style$ $normal_style"
+    local user="$green_bold$USER"
+    if [[ -n $(is_remote) ]]; then
+        local host="$yellow_bold$REMOTE_ICON `hostname`"
     else
-        local end="$main_style $ $normal_style"
+        local host="$green_bold`hostname`"
     fi
-    PS1="$PS1$end"
+    local path="$blue_bold$(is_writtable)\w"
+    local at_="${white}at"
+    local on_="${white}on"
+    local in_="${white}in"
+    local with_="${white}with"
+    PS1+="$user $at_ $host $in_ $path"
+
+
+    # Add git prompt (branch and remote status)
+    if inside_git_repo; then
+        PS1+=" $on_ `get_git_prompt`"
+    fi
+
+    # Conda env
+    if [[ `which python` != "/usr/bin/python" ]]; then
+        PS1+=" $with_ $CONDA_PROMPT_ENV`get_conda_env`"
+    fi
+
+    # Add git status
+    if inside_git_repo; then
+        local git_status=$(get_git_status)
+        if [[ $git_status != "" ]]; then
+            PS1+=" $white[`get_git_status`$white]"
+        fi
+    fi
+
+    # Enable multiline
+    if [[ $MULTILINE_PROMPT -ne 0 ]]; then
+        PS1+="\n"
+    else
+        PS1+=" "
+    fi
+
+    # Add number of background jobs to prompt
+    if [[ $njobs -ne 0 ]]; then
+        PS1+="$red_bold($njobs) "
+    fi
+
+    # Add prompt symbol (color is set based on last exit code)
+    local prompt_symbol=""
+    if [ $EXIT == 0 ]; then
+        prompt_symbol+="$green_bold"
+    else
+        prompt_symbol+="$red_bold"
+    fi
+    prompt_symbol+="$PROMPT_ICON "
+    PS1+="$prompt_symbol"
+
+    # Reset color of prompt
+    PS1+="$white"
 }
 
 
-get_conda_env ()
+PROMPT_COMMAND=set_prompt
+
+
+is_writtable() {
+    # Return the NO_WRITTABLE_ICON if the directory has
+    # no writing permissions
+    if [ -w $(pwd) ]; then
+        echo ""
+    else
+        echo "$NO_WRITTABLE_ICON "
+    fi
+}
+
+
+is_remote ()
+{
+    # Check if the terminal is logged in to a remote computer or not
+    # See https://unix.stackexchange.com/questions/9605/how-can-i-detect-if-the-shell-is-controlled-from-ssh
+    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+        echo "true"
+    else
+        echo ""
+    fi
+}
+
+
+get_git_prompt() {
+    # Return current git branch and remote status
+
+    # Initialize git_prompt local variable
+    local git_prompt=""
+
+    # Add branch
+    local branch=`get_git_branch`
+    git_prompt+="$GIT_PROMPT_BRANCH$branch"
+
+    # Remote status
+    local remote_status=`get_git_remote_status`
+    if [[ $remote_status == "ahead" ]]; then
+        local remote="$GIT_PROMPT_AHEAD"
+    elif [[ $remote_status == "behind" ]]; then
+        local remote="$GIT_PROMPT_BEHIND"
+    elif [[ $remote_status == "noupstream" ]]; then
+        local remote="$GIT_PROMPT_NOUPSTREAM"
+    elif [[ $remote_status == "diverged" ]]; then
+        local remote="$GIT_PROMPT_DIVERGED"
+    else
+        local remote=""
+    fi
+    if [[ -n $remote ]]; then
+        git_prompt+=" $remote"
+    fi
+
+    echo $git_prompt
+}
+
+get_git_status() {
+    # Return git current status
+
+    # Files status
+    local git_status=""
+
+    local files_staged=`git diff --cached --numstat | wc -l`
+    if [[ $files_staged -ne 0 ]]; then
+        git_status+="$GIT_PROMPT_STAGED$files_staged"
+    fi
+
+    local files_changed=`git diff --numstat | wc -l`
+    if [[ $files_changed -ne 0 ]]; then
+        git_status+="$GIT_PROMPT_CHANGED$files_changed"
+    fi
+
+    local files_untracked=`git ls-files --others --exclude-standard "$(git rev-parse --show-toplevel)" | wc -l`
+    if [[ $files_untracked -ne 0 ]]; then
+        git_status+="$GIT_PROMPT_UNTRACKED$files_untracked"
+    fi
+
+    local files_conflict=`git diff --name-only --diff-filter=U | wc -l`
+    if [[ $files_conflict -ne 0 ]]; then
+        git_status+="$GIT_PROMPT_CONFLICT$files_conflict"
+    fi
+
+    local files_stashed=`git stash list | wc -l`
+    if [[ $files_stashed -ne 0 ]]; then
+        git_status+="$GIT_PROMPT_STASHED$files_stashed"
+    fi
+
+    echo $git_status
+}
+
+
+get_conda_env()
 {
     # Determine active conda env details
-    local env_name=""
+    local conda=""
     if [[ ! -z $CONDA_DEFAULT_ENV ]]; then
-        local env_name="`basename \"$CONDA_DEFAULT_ENV\"`"
+        conda+="`basename \"$CONDA_DEFAULT_ENV\"`"
     fi
-    echo "$env_name"
+
+    if [[ $SHOW_PYTHON_VERSION -ne 0 ]]; then
+        conda+=" ($(get_python_version))"
+
+    fi
+    echo "$conda"
+}
+
+get_python_version ()
+{
+    echo "$(python -c 'from __future__ import print_function; import sys; print(".".join(map(str, sys.version_info[:2])))')"
 }
 
 
@@ -171,3 +274,4 @@ inside_git_repo() {
     # Test if inside a git repository. Will fail is not.
     git rev-parse --is-inside-work-tree 2> /dev/null > /dev/null
 }
+
