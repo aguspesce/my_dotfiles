@@ -61,6 +61,8 @@ alias fgrep='fgrep --colour=auto'
 alias du="du -h -d 0"
 alias open='xdg-open'
 alias xc='xclip -selection clipboard' # copy to clipboard using xclip
+alias monitor-mic='pactl load-module module-loopback latency_msec=1'
+alias monitor-stop='pactl unload-module module-loopback'
 
 # Run commands in background using tmux
 # alias ta="tmux attach -t"
