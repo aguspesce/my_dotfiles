@@ -293,3 +293,11 @@ let g:deoplete#enable_at_startup = 1
 " --------
 " Open NERDTree with Ctrl-n
 map <C-n> :NERDTreeToggle<CR>
+
+" vimtex
+" ------
+let g:tex_flavor = 'latex'
+let g:vimtex_enabled=1
+let g:vimtex_compiler_enabled=0
+let g:vimtex_complete_enabled=1
+let g:vimtex_complete_close_braces=1
