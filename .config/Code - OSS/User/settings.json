@@ -1,25 +1,23 @@
 {
     "workbench.colorTheme": "Visual Studio Dark",
-    "editor.rulers": [
-        80,
-    ],
+    "editor.fontFamily": "'Consolas, 'Courier New', monospace",
+    "editor.wordWrap": "on",
+    "editor.fontSize": 16,
+    "editor.rulers": [80,],
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#ff4081"
     },
+    "cSpell.language": "en,es",
     "editor.minimap.enabled": false,
     "files.trimTrailingWhitespace": true,
     "python.pythonPath": "/usr/bin/python3",
     "python.linting.pylintEnabled": false,
-    "python.linting.flake8Path": "/usr/local/bin/flake8",
+    "python.linting.flake8Path": "/usr/bin/flake8",
     "python.linting.flake8Enabled": true,
-    "python.linting.flake8Args": [
-        "--max-line-length=80"
-    ],
+    "python.linting.flake8Args": ["--max-line-length=80"],
     "python.formatting.provider": "black",
-    "python.formatting.blackPath": "/usr/local/bin/black",
-    "python.formatting.blackArgs": [
-        "--line-length=80",
-    ],
+    "python.formatting.blackPath": "/usr/bin/black",
+    "python.formatting.blackArgs": ["--line-length=80"],
     "editor.formatOnSave": true,
     "files.autoSave": "afterDelay",
     "editor.wordWrapColumn": 80
@@ -30,4 +28,17 @@
         },
         "editor.suggest.insertMode": "replace"
     },
+    // Extensión pylint
+    //"python.linting.pylintArgs": [
+    //"--extension-pkg-whitelist=pygame",
+    //"--disable=C0103, C0114, C0115, C0116",
+    // Pylint features. Pylint global options and switches
+    // http://pylint.pycqa.org/en/2.4/technical_reference/features.html
+    // http://pylint.pycqa.org/en/latest/technical_reference/features.html
+    // C0103: invalid-name - Used when the name doesn't conform to naming rules associated to its type (constant, variable, class...).
+    // C0114: missing-module-docstring - Used when a module has no docstring.Empty modules do not require a docstring.
+    // C0115: missing-class-docstring - Used when a class has no docstring.Even an empty class must have a docstring.
+    // C0116: missing-function-docstring - Used when a function or method has no docstring.Some special methods like __init__ do not require a docstring.
+    //],
+  //
 }
