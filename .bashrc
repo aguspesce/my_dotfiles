@@ -29,28 +29,12 @@ fi
 # -----------------------
 export PATH=$HOME/bin/:$PATH
 export PATH="$PATH:$(ruby -e 'print Gem.user_dir' 2> /dev/null)/bin"
-
-
-# ----------------
-# Define variables
-# ----------------
-export GEM_HOME=$HOME/.gem
-if [[ -d $HOME/.anaconda3 ]]; then
-    export CONDA_PATH=$HOME/.anaconda3
-elif [[ -d $HOME/.miniconda3 ]]; then
-    export CONDA_PATH=$HOME/.miniconda3
-elif [[ -d $HOME/anaconda3 ]]; then
-    export CONDA_PATH=$HOME/anaconda3
-elif [[ -d $HOME/miniconda3 ]]; then
-    export CONDA_PATH=$HOME/miniconda3
-fi
+export PATH="/home/agustina/.gem/ruby/3.0.0/bin:$PATH"
 
 
 # -------
 # Aliases
 # -------
-alias v="nvim"
-alias vim="nvim"
 alias cp="cp -i"
 alias ls="ls --group-directories-first --color=auto"
 alias ll="ls -lh --group-directories-first --color=auto"
@@ -61,37 +45,22 @@ alias fgrep='fgrep --colour=auto'
 alias du="du -h -d 0"
 alias open='xdg-open'
 alias xc='xclip -selection clipboard' # copy to clipboard using xclip
-alias monitor-mic='pactl load-module module-loopback latency_msec=1'
-alias monitor-stop='pactl unload-module module-loopback'
-
-# Run commands in background using tmux
-# alias ta="tmux attach -t"
-# alias lab='tmux new-session -d -s lab; tmux send-keys -t lab "cd $HOME; cenv; jupyter-lab --no-browser" Enter'
-# alias remotelab='tmux new-session -d -s remotelab; tmux send-keys -t remotelab "ssh -N -L localhost:9999:localhost:8888 santi@soler.unsj.edu.ar" Enter'
-# alias serve='tmux new-session -d -s serve; tmux send-keys -t serve "livereload -p 8080 ." Enter'
-
 # Conda aliases
 alias ca='conda activate'
-alias cdtop='cd $(git rev-parse --show-toplevel)' # cd to toplevel of git repo
-
 # Jupyter aliases
 alias jn="jupyter-notebook"
 alias jl="jupyter-lab"
-
 # Git aliases
 alias gti="git"
 alias gi="git"
 alias gts="git status"
-
+alias cdtop='cd $(git rev-parse --show-toplevel)' # cd to toplevel of git repo
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 # ssh aliases
 alias idecom="ssh agustina@pesce.unsj.edu.ar"  # ssh to IDECOM
 alias remotelab="ssh -N -L localhost:9999:localhost:8888 agustina@pesce.unsj.edu.ar"  # Create an SSH "local port forward" to IDECOM
-
-
 
 
 # ------
@@ -148,11 +117,25 @@ fi
 # ----------------
 # Initialize conda
 # ----------------
-# Setup and activate the conda package manager
-if [ -f $CONDA_PATH/etc/profile.d/conda.sh ]; then
-    source "$CONDA_PATH/etc/profile.d/conda.sh"
-    conda activate
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/agustina/mambaforge/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/agustina/mambaforge/etc/profile.d/conda.sh" ]; then
+        . "/home/agustina/mambaforge/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/agustina/mambaforge/bin:$PATH"
+    fi
 fi
+unset __conda_setup
+
+if [ -f "/home/agustina/mambaforge/etc/profile.d/mamba.sh" ]; then
+    . "/home/agustina/mambaforge/etc/profile.d/mamba.sh"
+fi
+# <<< conda initialize <<<
 
 # Activate the conda default environment
 if [ -f $HOME/environment.yml ]; then

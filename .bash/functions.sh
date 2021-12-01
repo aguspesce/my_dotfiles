@@ -2,30 +2,22 @@
 
 
 # ---------------
-# Conda functions
+# Mamba functions
 # ---------------
-condaon() {
-    if [[ `which python` == "/usr/bin/python" ]]; then
-        export PATH=$CONDA_PREFIX/bin:$PATH
-    else
-        echo "Conda is already on"
-    fi
+mambaon() {
+    mamba activate
 }
 
-condaoff() {
-    if [[ `which python` != "/usr/bin/python" ]]; then
-        export PATH=`echo $PATH | sed -n -e 's@'"$CONDA_PREFIX"'/bin:@@p'`
-    else
-        echo "Conda is already off"
-    fi
+mambaoff() {
+    mamba activate base; mamba deactivate
 }
 
 cenv() {
 read -r -d '' CENV_HELP <<-'EOF'
 Usage: cenv [COMMAND] [FILE]
 
-Detect, activate, delete, and update conda environments.
-FILE should be a conda .yml environment file.
+Detect, activate, delete, and update mamba environments.
+FILE should be a mamba .yml environment file.
 If FILE is not given, assumes it is environment.yml.
 Automatically finds the environment name from FILE.
 
@@ -80,17 +72,17 @@ EOF
 
     # Execute one of these actions: activate, update, delete
     if [[ $cmd == "activate" ]]; then
-        conda activate "$envname";
+        mamba activate "$envname";
     elif [[ $cmd == "deactivate" ]]; then
-        conda deactivate;
+        mamba deactivate;
     elif [[ $cmd == "update" ]]; then
         >&2 echo "Updating environment:" $envname;
-        conda activate "$envname";
-        conda env update -f "$envfile"
+        mamba activate "$envname";
+        mamba env update -f "$envfile"
     elif [[ $cmd == "delete" ]]; then
         >&2 echo "Removing environment:" $envname;
-        conda deactivate;
-        conda env remove --name "$envname";
+        mamba deactivate;
+        mamba env remove --name "$envname";
     fi
 }
 

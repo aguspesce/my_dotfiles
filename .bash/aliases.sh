@@ -1,7 +1,4 @@
 # Define aliases
-
-alias v="nvim"
-alias vim="nvim"
 alias cp="cp -i"                          # confirm before overwriting something
 alias ll="ls -lh"                        # ls in list and human readable
 alias du="du -h -d 0"                    # disk usage with human readable and depth 0
@@ -20,4 +17,8 @@ alias gi="git"
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# ssh to IDECOM
+alias idecom="ssh agustina@pesce.unsj.edu.ar"
 
+# Create an SSH "local port forward" to IDECOM
+alias remotelab="ssh -N -L localhost:9999:localhost:8888 agustina@pesce.unsj.edu.ar"
