@@ -1,0 +1,34 @@
+{
+    "workbench.colorTheme": "Default Dark+",
+    "files.autoSave": "onWindowChange",
+    "editor.wordWrap": "on",
+    "editor.fontSize": 16,
+    "editor.minimap.enabled": false,
+    "editor.rulers": [80,],
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#ff4081"
+    },
+    "editor.fontSize": 16,
+    "cSpell.language": "en,es",
+    "launch": {
+        "configurations": []
+    },
+    "python.pythonPath": "~/mambaforge/envs/default/bin/python",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Path": "~/mambaforge/envs/default/bin/flake8",
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": ["--max-line-length=80"],
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "~/mambaforge/envs/default/bin/black",
+    "python.formatting.blackArgs": ["--line-length=80"],
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay",
+    "editor.wordWrapColumn": 80,
+    "editor.codeActionsOnSave": null,
+    "[json]": {
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace"
+    },
+}
