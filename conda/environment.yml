@@ -8,30 +8,16 @@ dependencies:
   - jupyterlab
   - nodejs # needed by jupyterlab
   - ipython
-  - nb_conda
   - nbdime # git diffs for notebooks
   - livereload
   # Scientific stack
-  - numba
-  - dask
-  - dask-labextension
   - numpy
   - matplotlib
   - scipy
   - sympy
   - xarray
   - pandas
-  # Geospatial and maps
   - netcdf4
-  - cartopy
-  - pyproj
-  - pygmt
   # Linting and style checking
-  - black>=20.8b1
+  - black
   - flake8
-  # Fatiando
-  #- pooch
-  #- verde
-  #- harmonica
-  #- rockhound
-  #- boule
