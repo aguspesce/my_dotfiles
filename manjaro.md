@@ -46,12 +46,17 @@
 
 - nvim
 - python-pynvim
-- python-black
-- flake8
-- prettier
 - vim-spell-en
 - vim-spell-es
-- pyright
+<!-- Linters and autostyle -->
+- shellcheck
+- flake8
+- python-black
+- prettier
+<!-- Language servers -->
+- bash-language-server
+- python-lsp-server
+- texlab
 
 ## Video
 
