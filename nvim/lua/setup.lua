@@ -14,7 +14,7 @@ o.emoji = true  -- Use emoji
 o.clipboard = "unnamedplus" -- Vim uses the system clipboard
 
 o.splitright = true  -- Open a new window on the right
-o.hidden = true
+o.hidden = true -- Do not save when switching buffers
 o.lazyredraw = true
 
 o.signcolumn = 'yes'
