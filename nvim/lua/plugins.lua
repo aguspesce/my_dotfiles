@@ -1,56 +1,49 @@
 -- Plugins
---
+-- -------
+
 
 return require('packer').startup(function()
-  -- Packer can manage itself
-  use { 'wbthomason/packer.nvim' }
+    use { 'wbthomason/packer.nvim' } -- Package manager itself
 
-  -- Add file tree
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icon
-    }
-  }
+    use {
+        'kyazdani42/nvim-tree.lua',
+        requires = {
+        'kyazdani42/nvim-web-devicons', -- optional, for file icon
+        }
+    } -- File tree
 
-  -- Lualine
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    } -- Neovim statusline
 
-  -- Nightfox
-  use { 'EdenEast/nightfox.nvim'}
+    use { 'EdenEast/nightfox.nvim'} -- Nightfox theme
 
-  -- Gitsigns
-  use {
-    'lewis6991/gitsigns.nvim',
-    -- tag = 'release' -- To use the latest release
-  }
+    use { 'lewis6991/gitsigns.nvim' } -- Git signs
 
-  -- Comment
-  use {
-    'numToStr/Comment.nvim',
-    config = function()
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
         require('Comment').setup()
-    end
-  }
+        end
+    } -- Commenting plugin
 
-  -- Buffer line
-  use {
-    'akinsho/bufferline.nvim', tag = "v2.*",
-    requires = 'kyazdani42/nvim-web-devicons'
-  }
+    use {
+        'akinsho/bufferline.nvim', tag = "v2.*",
+        requires = 'kyazdani42/nvim-web-devicons'
+    } -- Buffer line
 
-  -- Collection of configurations for the built-in LSP client
-  use { 'neovim/nvim-lspconfig' }
+    use { 'sbdchd/neoformat' } -- Neoformat
 
-  -- Neoformat
-  use { 'sbdchd/neoformat' }
+    use { 'windwp/nvim-autopairs' } -- Autopair plugin
 
-  -- Autopairs
-  use({ "windwp/nvim-autopairs" })
+    use { 'mfussenegger/nvim-lint' } -- Linter
 
-  -- Linter
-   use {'mfussenegger/nvim-lint'}
+    use { 'neovim/nvim-lspconfig' } -- Collection of configurations for built-in LSP client
+
+    use { 'hrsh7th/nvim-cmp' } -- Autocompletion plugin
+    use { 'hrsh7th/cmp-nvim-lsp' }
+    use { 'hrsh7th/cmp-path' }
+    use { 'saadparwaiz1/cmp_luasnip' }
+    use { 'L3MON4D3/LuaSnip' } -- Snippets pluing
 end)

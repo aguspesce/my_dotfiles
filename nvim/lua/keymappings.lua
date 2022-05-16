@@ -1,12 +1,15 @@
+-- Keybindings
+-- -----------
+
 local keymap = vim.api.nvim_set_keymap
 
 vim.g.mapleader = ' '  -- Remap space as leader key
 
--- Save with Ctrl + S
-keymap('n', '<c-s>', ':w<CR>',{})
-keymap('i', '<c-s>', '<Esc>:w<CR>a',{})
+keymap('n', '<c-s>', ':w<CR>',{}) -- Save with ctrl+s
+keymap('i', '<c-s>', '<Esc>:w<CR>a',{}) -- Sace with ctrl+s
+keymap('v', '<c-c>', '"+y', {}) -- Map "+y in order to copy to clipboard
 
--- Move around windows
+-- Split keyboard shortcuts
 local opts = {noremap = true}
 keymap('n', '<c-j>', '<c-w>j',opts)  -- Up
 keymap('n', '<c-h>', '<c-w>h',opts)  -- Left
