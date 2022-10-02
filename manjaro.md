@@ -49,11 +49,13 @@
 - vim-spell-en
 - vim-spell-es
 <!-- Linters and autostyle -->
+- cppcheck
 - shellcheck
 - flake8
 - python-black
 - prettier
 <!-- Language servers -->
+- ccls
 - bash-language-server
 - python-lsp-server
 - texlab
