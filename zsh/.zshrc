@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # =================
 # zsh configuration
 # =================
@@ -13,6 +20,8 @@ if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
   source /usr/share/zsh/manjaro-zsh-prompt
 fi
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # --------------
 # Load functions
@@ -20,6 +29,18 @@ fi
 if [[ -r ~/.zsh/functions.zsh ]]; then
     source ~/.zsh/functions.zsh
 fi
+
+# # --------------------
+# # Initialize ssh agent
+# # --------------------
+# if [ -f ~/.ssh/agent.env ] ; then
+#     . ~/.ssh/agent.env > /dev/null
+#     if ! kill -0 $SSH_AGENT_PID > /dev/null 2>&1; then
+#         eval `ssh-agent | tee ~/.ssh/agent.env`
+#     fi
+# else
+#     eval `ssh-agent | tee ~/.ssh/agent.env`
+# fi
 
 
 # -------
@@ -85,3 +106,5 @@ if command -v conda &> /dev/null; then
       cenv $HOME/environment.yml
   fi
 fi
+
+
