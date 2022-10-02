@@ -36,9 +36,9 @@ o.shiftwidth = 4
 o.softtabstop = 4
 
 -- Text wrap
-set.wrap = true
-set.breakindent = true
-set.textwidth = 79
+o.wrap = true
+o.breakindent = true
+o.textwidth = 79
 
 -- Highlight all matches while searching
 o.incsearch = true
@@ -53,10 +53,9 @@ o.autowrite = true
 o.mouse = 'a'
 
 -- Add signcolumn
-set.signcolumn = "yes"
+o.signcolumn = "yes"
 
 o.breakindent = true --Enable break indent
-
 o.undofile = true --Save undo history
 
 -- Spell check configuration
@@ -64,4 +63,4 @@ o.spell = true
 o.spelllang = {'en', 'es'}
 
 -- Set number of context lines when scrolling
-set.scrolloff = 10
+o.scrolloff = 10

@@ -14,13 +14,15 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
     command = "set nocursorline",
 })
 
+
 -- Remove all trailing whitespace on save
-vim.api.nvim_create_augroup({ "trailing_whitespace"} , { clear = true })
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    group = "trailing_whitespace",
+vim.api.nvim_create_augroup("trailing_spaces", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = "trailing_spaces",
     pattern = { "*" },
     command = [[:%s/\s\+$//e]],
 })
+
 
 -- Autorun linter on read and write (requires nvim-lint)
 vim.api.nvim_create_augroup("linter", { clear = true })
