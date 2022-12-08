@@ -19,7 +19,7 @@ wo.cursorline = true
 
 o.emoji = true  -- Use emoji
 
-o.clipboard = "unnamedplus" -- Vim uses the system clipboard
+-- o.clipboard = "unnamedplus" -- Vim uses the system clipboard
 
 -- Split window
 o.splitright = true  -- Open a new window on the right
