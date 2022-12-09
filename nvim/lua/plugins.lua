@@ -22,6 +22,7 @@ end
 return require('packer').startup(function()
     -- Packer can manage itself
     use { 'wbthomason/packer.nvim' }
+
     -- File tree
     use {
         'kyazdani42/nvim-tree.lua',
@@ -29,18 +30,23 @@ return require('packer').startup(function()
         'kyazdani42/nvim-web-devicons', -- optional, for file icon
         }
     }
+
     -- Neovim statusline
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
+
     -- Nightfox theme
-    use { 'EdenEast/nightfox.nvim'}
+    use { 'EdenEast/nightfox.nvim' }
+
     -- Git signs
     use { 'tpope/vim-fugitive' }
     use { 'lewis6991/gitsigns.nvim' }
+
     -- Surrounding characters
     use 'tpope/vim-surround'
+
     -- Webdev
     use 'ap/vim-css-color'
     use {
@@ -49,6 +55,7 @@ return require('packer').startup(function()
            vim.g.user_emmet_leader_key = '<C-Z>'
        end
     }
+
     -- Comment.nvim
     use {
         'numToStr/Comment.nvim',
@@ -56,26 +63,39 @@ return require('packer').startup(function()
         require('Comment').setup()
         end
     }
-     -- Buffer line
+
+    -- Buffer line
     use {
         'akinsho/bufferline.nvim', tag = "v2.*",
         requires = 'kyazdani42/nvim-web-devicons'
     }
+
     -- Neoformat
     use { 'sbdchd/neoformat' }
+
     -- Autopair plugin
     use { 'windwp/nvim-autopairs' }
+
     -- Linter
     use { 'mfussenegger/nvim-lint' }
+
     -- LSP
     use { 'neovim/nvim-lspconfig' }
+
     -- cmp
     use { 'hrsh7th/nvim-cmp' } -- Autocompletion plugin
     use { 'hrsh7th/cmp-nvim-lsp' }
     use { 'hrsh7th/cmp-path' }
     use { 'saadparwaiz1/cmp_luasnip' }
     use { 'L3MON4D3/LuaSnip' } -- Snippets pluing
+
     -- vim-python-pep8-indent
     use { 'Vimjas/vim-python-pep8-indent', }
 
+    -- telescope
+    use {
+      'nvim-telescope/telescope.nvim', tag = '0.1.0',
+       -- or                            , branch = '0.1.x',
+      requires = { {'nvim-lua/plenary.nvim'} }
+    }
 end)

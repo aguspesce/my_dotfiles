@@ -1,7 +1,7 @@
 -- Basic configuration
---
+-- ===================
 
-local o = vim.opt  -- General configuration
+local set = vim.opt  -- General configuration
 local wo = vim.wo  -- Window configuration
 local bo = vim.bo  -- Buffer configuration
 
@@ -12,55 +12,59 @@ vim.g.mapleader = " "
 vim.g.python3_host_prog = '/usr/bin/python'
 
 -- Show line numbers
-o.number = true
+set.number = true
 
 -- Highlight cursorline
 wo.cursorline = true
 
-o.emoji = true  -- Use emoji
+set.emoji = true  -- Use emoji
 
 -- o.clipboard = "unnamedplus" -- Vim uses the system clipboard
 
 -- Split window
-o.splitright = true  -- Open a new window on the right
-o.hidden = true -- Do not save when switching buffers
-o.lazyredraw = true
-
-o.signcolumn = 'yes'
-
--- Autoindent
-o.autoindent = true
-o.expandtab = true
-o.tabstop = 4
-o.shiftwidth = 4
-o.softtabstop = 4
-
--- Text wrap
-o.wrap = true
-o.breakindent = true
-o.textwidth = 79
-
--- Highlight all matches while searching
-o.incsearch = true
-o.hlsearch = true
-
--- Add colorcolumn
-wo.colorcolumn = '80'
-
-o.autowrite = true
-
--- Enable mouse support
-o.mouse = 'a'
+set.splitright = true  -- Open a new window on the right
+set.hidden = true -- Do not save when switching buffers
+set.lazyredraw = true
 
 -- Add signcolumn
-o.signcolumn = "yes"
+set.signcolumn = 'yes'
 
-o.breakindent = true --Enable break indent
-o.undofile = true --Save undo history
+-- Autoindent
+set.autoindent = true
+set.expandtab = true
+set.tabstop = 4
+set.shiftwidth = 4
+set.softtabstop = 4
+
+-- Text wrap
+set.wrap = true
+set.breakindent = true
+set.textwidth = 79
+
+-- Highlight all matches while searching
+set.incsearch = true
+set.hlsearch = true
+
+-- Add colorcolumn
+set.colorcolumn = '80'
+
+set.autowrite = true
+
+-- Enable mouse support
+set.mouse = 'a'
+
+-- Add signcolumn
+set.signcolumn = "yes"
+
+--Enable break indent
+set.breakindent = true
+
+--Save undo history
+set.undofile = true
 
 -- Spell check configuration
-o.spell = true
-o.spelllang = {'en', 'es'}
+set.spell = true
+set.spelllang = {'en', 'es'}
 
 -- Set number of context lines when scrolling
-o.scrolloff = 10
+set.scrolloff = 10
