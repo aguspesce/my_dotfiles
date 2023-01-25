@@ -113,7 +113,9 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
+
 -- Bash language server
+-- Need to install the server using: npm i -g bash-language-server
 require('lspconfig')["bashls"].setup {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -125,6 +127,7 @@ require('lspconfig')["ccls"].setup {
   capabilities = capabilities,
 }
 -- Pylsp
+-- Need to install using: pip install python-lsp-server
 require('lspconfig').pylsp.setup {
     on_attach = on_attach,
     capabilities = capabilities,
