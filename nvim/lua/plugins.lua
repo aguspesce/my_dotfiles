@@ -31,7 +31,7 @@ return require('packer').startup(function()
         }
     }
 
-    -- Neovim statusline
+    -- Buffer navifation
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -79,13 +79,14 @@ return require('packer').startup(function()
     -- Linter
     use { 'mfussenegger/nvim-lint' }
 
-    -- LSP
+    -- Native LSP
     use { 'neovim/nvim-lspconfig' }
 
     -- cmp
     use { 'hrsh7th/nvim-cmp' } -- Autocompletion plugin
     use { 'hrsh7th/cmp-nvim-lsp' }
     use { 'hrsh7th/cmp-path' }
+    use { 'hrsh7th/cmp-buffer' }
     use { 'saadparwaiz1/cmp_luasnip' }
     use { 'L3MON4D3/LuaSnip' } -- Snippets pluing
 
@@ -98,4 +99,6 @@ return require('packer').startup(function()
        -- or                            , branch = '0.1.x',
       requires = { {'nvim-lua/plenary.nvim'} }
     }
+    -- Preview markdown
+    use { 'ellisonleao/glow.nvim' }
 end)
