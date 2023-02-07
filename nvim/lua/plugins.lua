@@ -84,7 +84,10 @@ return require('packer').startup(function()
     use { 'mfussenegger/nvim-lint' }
 
     -- Native LSP
+    use { 'williamboman/mason.nvim'} -- Mason: Easily install and manage LSP servers
+    use { 'williamboman/mason-lspconfig.nvim' }
     use { 'neovim/nvim-lspconfig' }
+
 
     -- cmp
     use { 'hrsh7th/nvim-cmp' } -- Autocompletion plugin
@@ -97,7 +100,7 @@ return require('packer').startup(function()
     -- vim-python-pep8-indent
     use { 'Vimjas/vim-python-pep8-indent', }
 
-    -- telescope
+    -- Telescope
     use {
       'nvim-telescope/telescope.nvim', tag = '0.1.0',
        -- or                            , branch = '0.1.x',

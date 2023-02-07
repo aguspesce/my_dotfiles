@@ -69,7 +69,13 @@ require('Comment').setup()
 -- Buffer line setup
 -- -----------------
 vim.opt.termguicolors = true
-require("bufferline").setup{}
+require('bufferline').setup{}
+
+
+-- Mason setup
+-- -----------
+require('mason').setup()
+require("mason-lspconfig").setup()
 
 
 -- LSP setup
@@ -112,7 +118,6 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
-
 
 -- Bash language server
 -- Need to install the server using: npm i -g bash-language-server
