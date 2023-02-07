@@ -57,6 +57,9 @@ return require('packer').startup(function()
        end
     }
 
+    -- LaTeX
+    use { 'lervag/vimtex' }
+
     -- Comment.nvim
     use {
         'numToStr/Comment.nvim',
