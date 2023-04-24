@@ -5,6 +5,9 @@ local set = vim.opt  -- General configuration
 local wo = vim.wo  -- Window configuration
 local bo = vim.bo  -- Buffer configuration
 
+-- Install nightfox
+vim.cmd("colorscheme nightfox")
+
 -- Map leader to spacebar
 vim.g.mapleader = " "
 
