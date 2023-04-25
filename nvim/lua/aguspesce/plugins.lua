@@ -35,7 +35,11 @@ return require('packer').startup(function(use)
   }
 
   -- Nightfox theme
-  use { 'EdenEast/nightfox.nvim' }
+  use {
+    'EdenEast/nightfox.nvim',
+    config = vim.cmd("colorscheme nightfox"),
+
+  }
 
   -- File tree
   use {
