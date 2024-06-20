@@ -1,0 +1,126 @@
+#!/bin/bash
+#
+# ------------------------
+# Post installation script
+# ------------------------
+
+ask() {
+    # Function to ask questions
+    #
+    # source: https://gist.github.com/davejamesmiller/1965569
+    local prompt default reply
+
+    if [[ ${2:-} = 'Y' ]]; then
+        prompt='Y/n'
+        default='Y'
+    elif [[ ${2:-} = 'N' ]]; then
+        prompt='y/N'
+        default='N'
+    else
+        prompt='y/n'
+        default=''
+    fi
+
+    while true; do
+        # Ask the question (not using "read -p" as it uses stderr not stdout)
+        echo -n "$1 [$prompt] "
+        # Read the answer (use /dev/tty in case stdin is redirected from somewhere else)
+        read -r reply </dev/tty
+        # Default?
+        if [[ -z $reply ]]; then
+            reply=$default
+        fi
+        # Check if the reply is valid
+        case "$reply" in
+            Y*|y*) return 0 ;;
+            N*|n*) return 1 ;;
+        esac
+    done
+}
+
+
+# Update package list
+echo
+if ask ":: Update package list (apt update)?" Y; then
+    sudo apt update
+else
+    echo "Skipping..."
+fi
+
+# Update packages
+echo
+if ask ":: Update packages (apt upgrade)?" Y; then
+    sudo apt upgrade
+else
+    echo "Skipping..."
+fi
+
+# Clone dotfiles git
+echo
+if ask ":: Clone my_dotfiles repo?" Y; then
+    sudo apt install git
+    git clone https://github.com/aguspesce/my_dotfiles
+
+    # Copy fonts
+    echo
+    if ask ":: Copy fonts from my_dotfiles?" Y; then
+        cp -r my_dotfiles/fonts ~/.fonts
+    else
+        echo "Skipping..."
+    fi
+
+    # Switch to zsh?
+    echo
+    if ask ":: Change default shell to zsh?" Y; then
+    	sudo apt install zsh
+        chsh -s "$(which zsh)"
+        cp -r my_dotfiles/zsh/for_pop_os/* ~
+        echo "You need to logout to run zsh as default"
+    else
+        echo "Skipping..."
+    fi
+
+    # Copy .gitconfig?
+    echo
+    if ask ":: Copy .gitconfig?" Y; then
+        cp -r my_dotfiles/git/.gitconfig ~
+    else
+        echo "Skipping..."
+    fi
+
+    # Copy environment.yml to home?
+    echo
+    if ask ":: Copy environment.yml to home?" Y; then
+        cp -r my_dotfiles/conda/environment.yml ~
+    else
+        echo "Skipping..."
+    fi
+
+else
+    echo "Skipping..."
+fi
+
+
+# Journal manager
+echo
+if ask ":: Install journal_manager (you might want to login again in the terminal to install journal in the default conda environment)?" Y; then
+    sudo apt install pip python3-click
+    DEB_PYTHON_INSTALL_LAYOUT=deb_system pip install git+https://github.com/aguspesce/journal_manager
+    # needed to configure this env variable in Ubuntu 22.04 (Pop Os!)
+    # reference: https://github.com/pypa/setuptools/issues/3269#issuecomment-1254507377
+else
+    echo "Skipping..."
+fi
+
+
+# Install Mambaforge
+echo
+if ask ":: Download and install mambaforge?" Y; then
+    echo "Downloading mambaforge [...]"
+    echo "  ** Remember to install in ~/.mambaforge **"
+    echo "  ** Don't init conda (my own zsh config already loads mamba) **"
+    curl -L -O https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh
+    bash Mambaforge-$(uname)-$(uname -m).sh
+else
+    echo "Skipping..."
+fi
