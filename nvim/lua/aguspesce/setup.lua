@@ -5,6 +5,9 @@ local set = vim.opt  -- General configuration
 local wo = vim.wo  -- Window configuration
 local bo = vim.bo  -- Buffer configuration
 
+-- Install nightfox
+vim.cmd("colorscheme nightfox")
+
 -- Map leader to spacebar
 vim.g.mapleader = " "
 
@@ -39,14 +42,14 @@ set.softtabstop = 4
 -- Text wrap
 set.wrap = true
 set.breakindent = true
-set.textwidth = 79
+set.textwidth = 99
 
 -- Highlight all matches while searching
 set.incsearch = true
 set.hlsearch = true
 
 -- Add colorcolumn
-set.colorcolumn = '80'
+set.colorcolumn = '99'
 
 set.autowrite = true
 

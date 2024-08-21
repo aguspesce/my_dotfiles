@@ -11,7 +11,7 @@ require('lint').linters_by_ft = {
 local flake8 = require('lint.linters.flake8')
 flake8.args = {
   -- <- Add a new parameter here
-  '--max-line-length=88',
+  '--max-line-length=99',
   -- <--
   '--format=%(path)s:%(row)d:%(col)d:%(code)s:%(text)s',
   '--no-show-source',
@@ -27,4 +27,4 @@ vim.api.nvim_create_autocmd(
       pattern = { "*" },
       callback = function() require("lint").try_lint() end,
     }
-)  
+)
