@@ -17,24 +17,28 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "python" },
 	command = "setlocal colorcolumn=89",
 })
+
 -- Change text last column for Rust files
 vim.api.nvim_create_autocmd("FileType", {
 	group = "custom_style",
 	pattern = { "rust" },
 	command = "setlocal colorcolumn=100",
 })
+
 -- Set indentation to 2 characters for html, yml, markdown and lua files
 vim.api.nvim_create_autocmd("FileType", {
 	group = "custom_style",
 	pattern = { "html", "htmldjango", "yml", "lua", "markdown" },
 	command = "setlocal ts=2 sts=2 sw=2 expandtab",
 })
+
 -- Set indentation to 3 characters for rst files
 vim.api.nvim_create_autocmd("FileType", {
 	group = "custom_style",
 	pattern = { "rst" },
 	command = "setlocal ts=3 sts=3 sw=3 expandtab",
 })
+
 -- Configure Git commits
 vim.api.nvim_create_autocmd("FileType", {
 	group = "custom_style",

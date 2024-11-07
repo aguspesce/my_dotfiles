@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 
-def holamindo(name):
+def holamindo(name: str, other):
     """
     Documentation
 
@@ -22,3 +22,11 @@ b = np.array(
         [6, 1655, 16, 16, 161, 22, 25, 26515, 156, 1],
     ]
 )
+holamindo(1, 1)
+
+
+def f(x: float):
+    return 1
+
+
+f("Hello")
