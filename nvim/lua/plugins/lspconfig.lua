@@ -60,6 +60,7 @@ return {
 				"black", -- python formatter
 				"mypy",
 				"pylint", -- python linter
+				"proselint",
 			},
 			automatic_installation = true,
 		})
